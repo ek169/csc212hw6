@@ -36,12 +36,10 @@ int BSTree::checkWords(std::string s, std::string w)
   {
     if(s[i] == '\0' && w[i] == '\0')
     {
-
       return 0;
     }
     if(s[i] < w[i])
     {
-
       return 1;
     }
     if(s[i] > w[i])
@@ -102,23 +100,17 @@ void BSTree::insert(BSTNode *currentNode, std::string newStr)
   {
     BSTNode *addedNode;
     case 0:
-      std::cout << "incrementing " << existingNode->data << std::endl;
       increment_frequency(existingNode);
       size++;
       break;
     case 1:
       addedNode = new BSTNode(newStr);
-      std::cout << "adding " << addedNode->data << " to the right of " \
-      << existingNode->data << std::endl;
-
       existingNode->right = addedNode;
       size++;
       unique_words++;
       break;
     case -1:
       addedNode = new BSTNode(newStr);
-      std::cout << "adding " << addedNode->data << " to the left of " \
-      << existingNode->data << std::endl;
       existingNode->left = addedNode;
       size++;
       unique_words++;
@@ -190,7 +182,7 @@ void BSTree::insert(std::string str)
 
 void BSTree::print_list(int n)
 {
-  print_list(root, n);
+  print_list(root, size);
   return;
 }
 

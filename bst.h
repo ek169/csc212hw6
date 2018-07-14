@@ -63,7 +63,7 @@ public:
 
     void print_list(int n);
 
-    void print_tree();
+    void print_tree(int n);
 
     void print_range(std::string, std::string); // output all the strings in the tree lexically between the parameters
 };
