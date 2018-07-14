@@ -23,7 +23,7 @@ private:
 
 public:
 
-    BSTNode(std::string) { data = d; frequency = 1; left = NULL; right = NULL; }
+    BSTNode(std::string d) { data = d; frequency = 1; left = NULL; right = NULL; }
     ~BSTNode() {}
 
     friend class BSTree;
@@ -45,9 +45,9 @@ private:
 
     void increment_frequency(BSTNode *);
 
-    int BSTree::checkWords(std::string, std::string)
+    int checkWords(std::string, std::string);
 
-    void insert(BSTNode**, std::string);
+    void insert(BSTNode*, std::string);
 
     void print_list(BSTNode*, int);
 
@@ -63,7 +63,7 @@ public:
 
     void print_list(int n);
 
-    void print_tree(int n);
+    void print_tree();
 
     void print_range(std::string, std::string); // output all the strings in the tree lexically between the parameters
 };
