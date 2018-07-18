@@ -83,8 +83,9 @@ void BSTree::increment_frequency(BSTNode *ptr)
 
 // inserts a new node or increments frequency of an existing node
 // based on the return value of find()
-void BSTree::insert(BSTNode *currentNode, std::string newStr)
+void BSTree::insert(BSTNode ** currentNode, std::string newStr)
 {
+  //std::cout << "size in insert is: " << size << " for str: " << newStr << std::endl;
   if(root == 0)
   {
     BSTNode *rootNode = new BSTNode(newStr);
@@ -94,7 +95,9 @@ void BSTree::insert(BSTNode *currentNode, std::string newStr)
     return;
   }
 
-  BSTNode * existingNode = find(currentNode, newStr);
+  BSTNode * existingNode = find(*currentNode, newStr);
+  // performs one final check with checkWords to see if the last node's
+  // data is equal to newStr or if a new node should be added
   int finalComparison = checkWords(existingNode->data, newStr);
   switch(finalComparison)
   {
@@ -153,31 +156,36 @@ void BSTree::print_range(std::string startWord, std::string endWord, BSTNode* cu
 {
   if(currentNode)
   {
-    int startVsData = checkWords(currentNode->data, startWord);
+    int startVsData = checkWords(startWord, currentNode->data);
+
+    // startVsData && endVsData are assigned a value -1, 0, or 1,
+    // which determines if the current node is within the range of start and end words
     int endVsData = checkWords(currentNode->data, endWord);
-    if(startVsData <= endVsData)
+    if(startVsData >= 0 && endVsData >= 0)
     {
       print_range(startWord, endWord, currentNode->left);
       print_list(currentNode, 1);
       print_range(startWord, endWord, currentNode->right);
     }
-    else if(endVsData == -1)
+    else if(endVsData >= 0)
     {
       print_range(startWord, endWord, currentNode->right);
     }
-    else if(startVsData == 1)
+    else if(startVsData >= 0)
     {
       print_range(startWord, endWord, currentNode->left);
     }
   }
 }
 
+
 // public functions, mostly just call the private member functions which
 // modify the private data members
 
 void BSTree::insert(std::string str)
 {
-  insert(root, str);
+  BSTNode ** rootPtr = &root;
+  insert(rootPtr, str);
 }
 
 void BSTree::print_list(int n)
@@ -186,8 +194,15 @@ void BSTree::print_list(int n)
   return;
 }
 
+
 void BSTree::print_tree()
 {
+  print_list(size);
+}
+
+void BSTree::print_tree_details()
+{
+  // prints details of tree
   std::cout << size << " total words" << std::endl;
   std::cout << unique_words << " unique words" << std::endl;
   return;
@@ -195,7 +210,25 @@ void BSTree::print_tree()
 
 void BSTree::print_range(std::string startWord, std::string endWord)
 {
-  BSTNode * closestNode = find(root, startWord);
-  print_range(startWord, endWord, closestNode);
+  print_range(startWord, endWord, root);
   return;
+}
+
+
+// takes in a string and sees if there is a node with that string as its data
+bool BSTree::containsWord(std::string w)
+{
+  BSTNode * n = find(root, w);
+  if(n->data == w)
+  {
+    return true;
+  }
+  return false;
+}
+
+// takes in an integer and utilizes the private findWordAtNode function
+
+int BSTree::get_size()
+{
+  return size;
 }

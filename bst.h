@@ -47,11 +47,14 @@ private:
 
     int checkWords(std::string, std::string);
 
-    void insert(BSTNode*, std::string);
+    void insert(BSTNode**, std::string);
 
     void print_list(BSTNode*, int);
 
     void print_range(std::string, std::string, BSTNode*);
+
+    std::string deleteNode(BSTNode*);
+
 
 
 public:
@@ -63,9 +66,18 @@ public:
 
     void print_list(int n);
 
-    void print_tree(int n);
+    void print_tree();
+
+    void print_tree_details();
 
     void print_range(std::string, std::string); // output all the strings in the tree lexically between the parameters
+
+    bool containsWord(std::string);
+
+    int get_size();
+
+
+
 };
 
 
